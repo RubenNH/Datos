@@ -1,0 +1,79 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ed.edd.segundointento;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Usuario
+ */
+public class Archivo {
+    private String nombre;
+    public Archivo(String nombre) {
+        this.nombre=nombre;
+    }
+    
+    public LinkedList<String> obtenerTextoDelArchivo() {
+        LinkedList<String> lineasDeTexto=null;
+        try {            
+            File archivo = obtenerArchivo();     
+            if (archivo.exists()) {
+                lineasDeTexto=new LinkedList();
+                BufferedReader br = new BufferedReader(new FileReader(archivo));
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    System.out.println(linea);
+                    lineasDeTexto.add(linea);
+                }
+                br.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "El archivo de texto no existe");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Se produjo un Error ");
+        }
+        return lineasDeTexto;
+    }
+    
+    private File obtenerArchivo() {       
+        try {
+            URL url = getClass().getClassLoader().getResource("archivos/"+nombre);
+            return new File(url.toURI());            
+        } catch (URISyntaxException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    public boolean registrarArchivo(String linea) { 
+        File archivo = obtenerArchivo();
+        try {
+            if(archivo.exists()){
+                FileWriter fw = new FileWriter(archivo, true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.println(linea);
+                pw.flush();
+                pw.close();
+                return true;
+            }          
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
+        return false;
+    }
+}
