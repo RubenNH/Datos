@@ -11,31 +11,25 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Usuario
  */
-public class ModeloContactos extends AbstractTableModel{
-    private ListaContactos contactos; //declR un variable del bean lista contactos
+public class ModeloContactosOrdenados extends AbstractTableModel{
+    private ListaContactos contactos;
 
-    public ModeloContactos() {
+    public ModeloContactosOrdenados() {
         contactos=new ListaContactos();
-        contactos.cargarContactod();
+        contactos.cargarContactosOrden();
     }
-    //Constructor
-
-
-
-    // A continuacion  se realizo el modelaado para la vista del formulario
+    
+    
     @Override
     public int getRowCount() {
         return contactos.total();
     }
-//conteode filas
+
     @Override
     public int getColumnCount() {
         return 5;
     }
-//Conteo de columnas
 
-
-    //indexado de los encabezados
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Contacto aux=contactos.obtener(rowIndex);
@@ -47,9 +41,7 @@ public class ModeloContactos extends AbstractTableModel{
             default: return aux.getDireccion();
         }
     }
-
-
-    //nombres de filas
+    
     @Override
     public String getColumnName(int col) {
         switch(col){
@@ -71,7 +63,7 @@ public class ModeloContactos extends AbstractTableModel{
             default: return String.class;
         }
     }
-
+    
     @Override
     public boolean isCellEditable(int row, int col) {
         return true;        
@@ -93,18 +85,14 @@ public class ModeloContactos extends AbstractTableModel{
         }
         fireTableCellUpdated(fila, columna);
     }
-    //metodo para agregar contactos via boton
+    
     public void agregarContacto(Contacto producto){
         contactos.agregar(producto);
         this.fireTableDataChanged();   
     }
-    //metodo para eliminar bia voton
+    
     public void eliminarContacto(int indice){
         contactos.eliminar(indice);
         this.fireTableDataChanged(); 
-    }
-    //los cMBIOS NO se aplican hasta presionar el boton de guardado
-    public void guardarEnArchivo(){
-        contactos.guardarEnArchivo();
     }
 }

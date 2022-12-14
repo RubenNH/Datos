@@ -17,10 +17,12 @@ public class Principal {
         l.cargarContactod();
         l.imprimirContactos();
         
-        BDContactos bd = new BDContactos();
+       /* BDContactos bd = new BDContactos();
         Contacto c = new Contacto("700", "Eduardo", "Pana", 77712365463L, "Enrique Segoviano");
         if(bd.registrarContactos(c)){
             JOptionPane.showMessageDialog(null, "Good");
         }
+
+        */
     }
 }

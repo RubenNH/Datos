@@ -9,7 +9,9 @@ package ed.edd.segundointento;
  *
  * @author Usuario
  */
-public class Contacto {
+//implemento para poder comparar los contactos
+public class Contacto implements Comparable<Contacto> {
+    //datos que tendra el contaco
     private String id;
     private String Nombre;
     private String Apellido;
@@ -25,6 +27,10 @@ public class Contacto {
     }
 
     public Contacto() {
+    }
+
+    Contacto(String id, String nombre, String apellido, String numT, String direc) {
+         //To change body of generated methods, choose Tools | Templates.
     }
 
     
@@ -68,6 +74,10 @@ public class Contacto {
     public void setDireccion(String Direccion) {
         this.Direccion = Direccion;
     }
-    
-    
+
+    //asignamos que compare el contacto por nombre pero se puede por otro dato
+    @Override
+    public int compareTo(Contacto t) {
+        return Nombre.compareTo(t.getNombre());
+    }
 }

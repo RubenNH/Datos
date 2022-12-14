@@ -32,10 +32,15 @@ public class BDContactos {
         }
         return Contactos;
     }
-    
+    //metodo encargado de acceder al archivo a modificar
     public boolean registrarContactos(Contacto C){
         Archivo archivo = new Archivo("contactos.txt");
         return archivo.registrarArchivo(C.getId()+";"+
                 C.getNombre()+";"+C.getApellido()+";"+C.getNumero()+";"+C.getDireccion());
+    }
+    
+    public boolean borrarTodo(){
+        Archivo archivo = new Archivo("contactos.txt");
+        return archivo.borrarContenido();
     }
 }
